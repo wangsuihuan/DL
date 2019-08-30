@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
+    </script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css" />
+    <style>
+        body {
+            background: #ddd;
+            margin: 0;
+        }
+    
+        /* Custom Slick Start */
+        .slick-arrow {
+            z-index: 2;
+        }
+    
+        .slick-prev {
+            left: 0;
+        }
+    
+        .slick-next {
+            right: 0;
+        }
+    
+        .slick-dots {
+            bottom: 25px;
+        }
+    
+        .slick-dots li button:before {
+            color: #fff;
+            font-size: 8px;
+            opacity: .5;
+        }
+    
+        .slick-dots li.slick-active button:before {
+            color: #fff;
+        }
+    
+        /* Custom Slick End */
+        .carousel-1 {
+            background: #000;
+        }
+    
+        .carousel .container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            margin: 0 auto;
+            transform: translateY(-50%);
+        }
+    
+        .item {
+            color: #fff;
+            position: relative;
+            height: 600px;
+        }
+    
+        .item:hover {
+            color: #fff;
+        }
+
+        .dl__img {
+            width: 100%;
+            max-width: 100%;
+        }
+    
+        .dl__title {
+            font-size: 3.75rem;
+        }
+    
+        .dl__desc {
+            font-size: 1.125rem;
+            margin-bottom: 20px;
+        }
+    
+        .dl__btn {
+            min-width: 180px;
+            padding: 0 20px;
+            background-color: #468ce6;
+            height: 2.75rem;
+            line-height: 2.75rem;
+            font-size: .875rem;
+            display: inline-block;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 700;
+        }
+    
+        .dl__btn:hover {
+            opacity: .8;
+        }
+    
+        @media (max-width: 767px) {
+            .carousel .container {
+                position: relative;
+                top: 0;
+                transform: translateY(0);
+                margin-top: 20px; 
+                margin-bottom: 20px;  
+            }
+        }
+
+        /* ****** */
+        .text
+        {
+            padding-left: 20px;
+            margin-top: 30px;
+        }
+        .text-item
+        {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="carousel carousel-1">
+        <a data-id="1576" href="javascript:void(0);" class="item item1 js-dl-item">
+            <img class="dl__img js-dl-img" src="" />
+            <div class="container">
+                <div class="dl__title">Title 1</div>
+                <div class="dl__desc">Description 1</div>
+                <div class="dl__btn">WATCH</div>
+            </div>
+        </a>
+        <a data-id="1581" href="javascript:void(0);" class="item item2 js-dl-item">
+            <img class="dl__img js-dl-img" src="" />
+            <div class="container">
+                <div class="dl__title">Title 2</div>
+                <div class="dl__desc">Description 2</div>
+                <div class="dl__btn">WATCH</div>
+            </div>
+        </a>
+    </div>
+
+    <p class="text">
+        说明：<br>
+        在前两种方案上再应用该方案， 此方案让图片针对phone显示的更精准<br>
+        项目应用：<a href="https://univisionnowv2.neulion.com/">UNIVISION NOW</a><br>
+    </p>
+    <br>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script type="text/javascript">
+        $(".js-dl-item").each(function () {
+            var id = $(this).data("id");
+            var src = '';
+            if ((os.isAndroid || os.isPhone) && window.matchMedia("(orientation: portrait)").matches) {
+                src = 'images/' + id + '_ph.jpg';
+            }
+            else {
+                src = 'images/' + id + '_pc.jpg';
+            }
+
+            $(this).find(".js-dl-img").attr('src', src);
+        })
+
+
+        $(document).ready(function () {
+            $('.carousel').slick({
+                // dots: true,
+            });
+        });
+    </script>
+</body>
+
+</html>
